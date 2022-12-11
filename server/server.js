@@ -8,6 +8,9 @@ import multer from "multer";
 import path from "path";
 import bodyParser from "body-parser";
 import { fileURLToPath } from "url";
+import { register } from "./controllers/authController.js";
+import authRouter from "./routes/authRouter.js";
+import { authorize } from "./middleware/authorize.js";
 
 // configuration
 // below 2 lines are only for "type": "module" confiuration
@@ -35,6 +38,13 @@ const storage = multer.diskStorage({
     cb(null, file.originalname);
   },
 });
+const upload = multer({ storage });
+
+// this routes is alone here, just cuz it uses the upload function above
+server.post("/auth/register", upload.single("picture"), register);
+
+// routes
+server.use("/auth", authRouter);
 
 // mongo db connect
 mongoose
@@ -43,6 +53,7 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
+    console.log("mongo db connected");
     server.listen(process.env.PORT, () =>
       console.log(`server listening at: ${process.env.PORT}`)
     );
