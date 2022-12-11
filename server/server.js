@@ -35,3 +35,16 @@ const storage = multer.diskStorage({
     cb(null, file.originalname);
   },
 });
+
+// mongo db connect
+mongoose
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    server.listen(process.env.PORT, () =>
+      console.log(`server listening at: ${process.env.PORT}`)
+    );
+  })
+  .catch((error) => console.log("db connection failed\n", error));
