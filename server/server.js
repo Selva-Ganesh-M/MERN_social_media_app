@@ -10,7 +10,13 @@ import bodyParser from "body-parser";
 import { fileURLToPath } from "url";
 import { register } from "./controllers/authController.js";
 import authRouter from "./routes/authRouter.js";
-import { authorize } from "./middleware/authorize.js";
+import authorize from "./middleware/authorize.js";
+import userRouter from "./routes/userRoutes.js";
+import { createPost } from "./controllers/postsController.js";
+import postsRouter from "./routes/postRouter.js";
+import { users, posts } from "./data/index.js";
+import User from "./models/User.js";
+import Post from "./models/Post.js";
 
 // configuration
 // below 2 lines are only for "type": "module" confiuration
@@ -42,9 +48,12 @@ const upload = multer({ storage });
 
 // this routes is alone here, just cuz it uses the upload function above
 server.post("/auth/register", upload.single("picture"), register);
+server.post("/posts", authorize, upload.single("picture"), createPost);
 
-// routes
+// ROUTES
 server.use("/auth", authRouter);
+server.use("/users", authorize, userRouter);
+server.use("/posts", authorize, postsRouter);
 
 // mongo db connect
 mongoose
@@ -52,8 +61,12 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => {
+  .then(async () => {
     console.log("mongo db connected");
+
+    // ALREADY RAN ONCE JUST TO INSERT THE DUMMY DATA IN.
+    // await Post.insertMany(posts);
+    // await User.insertMany(users);
     server.listen(process.env.PORT, () =>
       console.log(`server listening at: ${process.env.PORT}`)
     );
