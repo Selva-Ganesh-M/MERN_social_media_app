@@ -18,7 +18,7 @@ export const createPost = async (req, res) => {
     });
     await post.save();
     const allPosts = await Post.find();
-    res.status(401).json(allPosts);
+    res.status(201).json(allPosts);
   } catch (e) {
     res.status(res.statusCode !== 200 ? res.statusCode : 500);
     res.json(e.message);

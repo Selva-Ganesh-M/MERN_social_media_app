@@ -11,6 +11,6 @@ const postsRouter = express.Router();
 postsRouter.get("/", getFeedPosts), postsRouter.get("/:userId", getUserPosts);
 
 // UPDATE_ROUTES
-postsRouter.put("/:_id/like", likePost);
+postsRouter.patch("/:_id/like", likePost);
 
 export default postsRouter;

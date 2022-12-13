@@ -3,8 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   mode: "light",
   user: {},
-  token: null,
   posts: [],
+  token: null,
 };
 
 const authSlice = createSlice({
@@ -30,11 +30,7 @@ const authSlice = createSlice({
       }
     },
     setPosts: (state, action) => {
-      if (state.user) {
-        state.user.posts = action.payload.posts;
-      } else {
-        console.error("user not exist. setting posts failed.");
-      }
+      state.posts = action.payload.posts;
     },
     setPost: (state, action) => {
       const updatedPosts = state.posts.map((post) => {

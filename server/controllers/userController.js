@@ -16,7 +16,9 @@ const checkValidUser = async (_id) => {
 
 export const getUser = async (req, res) => {
   try {
-    if (req.params._id !== req.user._id) {
+    // console.log(req.params._id, req.user._id);
+    // console.log(typeof req.params._id, typeof req.user._id);
+    if (req.params._id !== req.user._id.toString()) {
       res.status(403);
       throw new Error("authorized user id not matched with the id on url.");
     }
@@ -29,7 +31,7 @@ export const getUser = async (req, res) => {
 
 export const getFriends = async (req, res) => {
   try {
-    if (req.params._id !== req.user._id) {
+    if (req.params._id !== req.user._id.toString()) {
       res.status(403);
       throw new Error("authorized user id not matched with the id on url.");
     }

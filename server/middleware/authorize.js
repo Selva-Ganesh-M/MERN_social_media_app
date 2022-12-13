@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import mongoose from "mongoose";
 import User from "../models/User.js";
 
 const authorize = async (req, res, next) => {
@@ -17,7 +18,8 @@ const authorize = async (req, res, next) => {
       );
     }
     const { _id } = authorizedUser;
-    if (mongoose.isValidObjectId(_id)) {
+    // console.log(_id);
+    if (!mongoose.isValidObjectId(_id)) {
       res.status(400);
       throw new Error("invalid user id.");
     }

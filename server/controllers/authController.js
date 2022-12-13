@@ -23,6 +23,7 @@ export const register = async (req, res) => {
       location,
       occupation,
       picturePath,
+      friends: [],
       viewedProfiles: Math.floor(Math.random() * 1000),
       impressions: Math.floor(Math.random() * 1000),
     });
