@@ -33,14 +33,17 @@ server.use(morgan("common"));
 server.use(bodyParser.json({ limit: "30mb", extended: true }));
 server.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 server.use(cors());
-server.use("/assets", express.static(path.join(__dirname, "public/assets")));
+server.use(
+  "/assets",
+  express.static(path.join(__dirname, "server/public/assets"))
+);
 
 // file storage
 const storage = multer.diskStorage({
-  destination: function (req, res, cb) {
-    cb(null, "public/assets");
+  destination: function (req, file, cb) {
+    cb(null, "server/public/assets");
   },
-  filename: function (req, res, cb) {
+  filename: function (req, file, cb) {
     cb(null, file.originalname);
   },
 });

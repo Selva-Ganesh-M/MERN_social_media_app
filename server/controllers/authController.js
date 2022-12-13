@@ -52,7 +52,7 @@ export const login = async (req, res) => {
     delete user.password;
     res
       .status(201)
-      .json({ message: "new user created", payload: { user, token } });
+      .json({ message: "Login Successful", payload: { user, token } });
   } catch (e) {
     res.status(res.statusCode !== 200 ? res.statusCode : 500);
     res.json(e.message);
