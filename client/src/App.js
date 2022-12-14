@@ -9,6 +9,7 @@ import LoginPage from "./scenes/loginPage/LoginRegisterPage";
 import ProfilePage from "./scenes/profilePage/ProfilePage";
 
 function App() {
+  const user = useSelector((state) => state.user);
   const mode = useSelector((state) => state.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
 
@@ -21,8 +22,16 @@ function App() {
           <CssBaseline />
           <Routes>
             <Route exact path="/" element={<LoginPage />} />
-            <Route exact path="/home" element={<HomePage />} />
-            <Route exact path="/profile/:_id" element={<ProfilePage />} />
+            <Route
+              exact
+              path="/home"
+              element={user ? <HomePage /> : <Navigate to="/" />}
+            />
+            <Route
+              exact
+              path="/profile/:_id"
+              element={user ? <ProfilePage /> : <Navigate to="/" />}
+            />
           </Routes>
         </ThemeProvider>
       </BrowserRouter>

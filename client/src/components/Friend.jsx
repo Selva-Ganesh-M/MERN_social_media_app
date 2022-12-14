@@ -7,7 +7,6 @@ import FlexBetween from "./FlexBetween";
 import UserImage from "./UserImage";
 
 const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
-  console.log("friend");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { _id } = useSelector((state) => state.user);
@@ -20,7 +19,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
   const main = palette.neutral.main;
   const medium = palette.neutral.medium;
 
-  const isFriend = friends.find((friend) => friend._id === friendId);
+  const isFriend = friends?.find((friend) => friend._id === friendId);
 
   const patchFriend = async () => {
     const response = await fetch(

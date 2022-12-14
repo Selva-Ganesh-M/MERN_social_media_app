@@ -23,7 +23,6 @@ const PostWidget = ({
   likes,
   comments,
 }) => {
-  console.log("post");
   const [isComments, setIsComments] = useState(false);
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token);

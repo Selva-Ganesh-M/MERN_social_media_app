@@ -4,7 +4,13 @@ import {
   LocationOnOutlined,
   WorkOutlineOutlined,
 } from "@mui/icons-material";
-import { Box, Typography, Divider, useTheme } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Divider,
+  useTheme,
+  useMediaQuery,
+} from "@mui/material";
 import UserImage from "../../components/UserImage";
 import FlexBetween from "../../components/FlexBetween";
 import WidgetWrapper from "../../components/WidgetWrapper";
@@ -13,6 +19,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const UserWidget = ({ userId, picturePath }) => {
+  const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   const [user, setUser] = useState(null);
   const { palette } = useTheme();
   const navigate = useNavigate();
@@ -39,8 +46,8 @@ const UserWidget = ({ userId, picturePath }) => {
   }
 
   const {
-    firstName,
-    lastName,
+    firstname,
+    lastname,
     location,
     occupation,
     viewedProfile,
@@ -49,7 +56,12 @@ const UserWidget = ({ userId, picturePath }) => {
   } = user;
 
   return (
-    <WidgetWrapper>
+    <WidgetWrapper
+      sx={{
+        position: isNonMobileScreens ? "sticky" : "static",
+        top: isNonMobileScreens ? "113px" : null,
+      }}
+    >
       {/* FIRST ROW */}
       <FlexBetween
         gap="0.5rem"
@@ -70,7 +82,7 @@ const UserWidget = ({ userId, picturePath }) => {
                 },
               }}
             >
-              {firstName} {lastName}
+              {firstname} {lastname}
             </Typography>
             <Typography color={medium}>{friends.length} friends</Typography>
           </Box>

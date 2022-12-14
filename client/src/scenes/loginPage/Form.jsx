@@ -64,6 +64,7 @@ const Form = () => {
     for (let value in values) {
       formData.append(value, values[value]);
     }
+    console.log("here", values.picture);
     formData.append("picturePath", values.picture.name);
     const firstname = formData.get("firstName");
     const lastname = formData.get("lastName");

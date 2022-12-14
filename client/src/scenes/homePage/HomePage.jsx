@@ -13,7 +13,10 @@ const HomePage = () => {
   const { _id, picturePath } = useSelector((state) => state.user);
   return (
     <Box>
+      {/* navbar */}
       <Navbar />
+
+      {/* home main */}
       <Box
         width="100%"
         padding="2rem 6%"
@@ -21,9 +24,16 @@ const HomePage = () => {
         gap="0.5rem"
         justifyContent="space-between"
       >
+        {/* user details */}
         <Box flexBasis={isNonMobileScreens ? "26%" : undefined}>
-          <UserWidget userId={_id} picturePath={picturePath} />
+          <UserWidget
+            // {isNonMobileScreens? (sx={{ position: "sticky", top: "130px" }}) : (null) }
+            userId={_id}
+            picturePath={picturePath}
+          />
         </Box>
+
+        {/* main-feed */}
         <Box
           flexBasis={isNonMobileScreens ? "42%" : undefined}
           mt={isNonMobileScreens ? undefined : "2rem"}
@@ -31,6 +41,8 @@ const HomePage = () => {
           <MyPostWidget picturePath={picturePath} />
           <PostsWidget userId={_id} />
         </Box>
+
+        {/* advert and FriendListWidget */}
         {isNonMobileScreens && (
           <Box flexBasis="26%">
             <AdvertWidget />

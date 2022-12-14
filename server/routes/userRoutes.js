@@ -12,6 +12,6 @@ userRouter.get("/:_id", getUser);
 userRouter.get("/:_id/friends", getFriends);
 
 // UPDATE_ROUTES
-userRouter.put("/:_id/:friendId", addRemoveFriends);
+userRouter.patch("/:_id/:friendId", addRemoveFriends);
 
 export default userRouter;
